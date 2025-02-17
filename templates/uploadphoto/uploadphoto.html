@@ -1,11 +1,24 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="ko">
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="{% static 'uploadphoto/css/globals.css' %}" />
     <link rel="stylesheet" href="{% static 'uploadphoto/css/style.css' %}" />
     <title>Upload Photo</title>
+    <style>
+      /* .share 클래스에 정의된 위치 스타일은 style.css에서 관리됩니다.
+         미리보기 이미지(#preview) 기본 상태는 숨김 처리합니다. */
+      #preview.share {
+        display: none;
+        max-width: 500px;
+        margin: 20px auto;
+      }
+      /* label 스타일: 커서 변경 등 */
+      label.upload-your-photo {
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
     <div class="recommend">
@@ -31,12 +44,8 @@
               <a href="{% url 'uploadphoto_page' %}" style="display: block; text-decoration: none; color: inherit;">
                 <div class="overlap-2">
                   <div class="rectangle"></div>
-                  <!-- 
-                    만약 Search 입력 필드를 실제로 사용하고 싶다면 
-                    input 태그는 a 태그 내부에 넣지 않는 것이 좋습니다.
-                    여기서는 클릭 시 페이지 이동 기능만 적용할 예정입니다.
-                  -->
-                  <input class="input" placeholder="Search" type="text" disabled style="pointer-events: none; background: none; border: none;"/>
+                  <input class="input" placeholder="Search" type="text" disabled
+                         style="pointer-events: none; background: none; border: none;"/>
                 </div>
               </a>
             </div>
@@ -59,8 +68,21 @@
           </header>
         </div>
         <div class="overlap-5">
-          <div class="upload-your-photo">Upload Your Photo</div>
-          <img class="share" src="{% static 'uploadphoto/img/share.svg' %}" alt="Share" />
+          <!-- 업로드 폼 영역 -->
+          <form id="uploadForm" method="POST" enctype="multipart/form-data" style="text-align: center;">
+            {% csrf_token %}
+            <!-- 숨겨진 파일 입력; 파일 선택 시 previewFile() 호출 -->
+            <input type="file" name="image" id="photo" accept="image/*" style="display: none;"
+                    onchange="previewFile()" required />
+            <!-- label 클릭 시 파일 선택창이 열림 -->
+            <label for="photo" class="upload-your-photo" style="cursor: pointer;">
+              Upload Your Photo
+            </label>
+          </form>
+          <!-- 업로드된 사진 미리보기가 .share 스타일에 의해 지정된 위치에 나타남 -->
+          <img id="preview" class="share" src="#" alt="Uploaded Photo" />
+          <!-- 원래 있던 share 아이콘은 여기서는 필요 없으므로 display: none 처리 -->
+          <img class="share" src="{% static 'uploadphoto/img/share.svg' %}" alt="Share" style="display: none;" />
         </div>
         <div class="upload-your-travel">
           Upload Your <br />travel Photo
@@ -74,5 +96,29 @@
         <img class="rectangle-5" src="{% static 'uploadphoto/image/img5.jpg' %}" alt="Rect36" />
       </div>
     </div>
+    <script>
+      function previewFile() {
+        const preview = document.getElementById('preview');
+        const fileInput = document.getElementById('photo');
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+  
+        reader.onloadend = function () {
+          preview.src = reader.result;
+          preview.style.display = 'block';
+          // 파일 미리보기가 표시된 후 1초 후 자동으로 폼 제출
+          setTimeout(() => {
+            document.getElementById('uploadForm').submit();
+          }, 1000);
+        }
+  
+        if (file) {
+          reader.readAsDataURL(file);
+        } else {
+          preview.src = "";
+          preview.style.display = 'none';
+        }
+      }
+    </script>
   </body>
 </html>

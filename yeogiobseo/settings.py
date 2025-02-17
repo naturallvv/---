@@ -129,3 +129,9 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 미디어 파일을 관리할 루트 경로
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# 브라우저에서 접근할 URL 경로
+MEDIA_URL = '/media/'
