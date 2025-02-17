@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def uploadphoto_page(request):
+    return render(request, 'uploadphoto/uploadphoto.html')

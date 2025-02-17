@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{% static 'uploadphoto/css/globals.css' %}" />
+    <link rel="stylesheet" href="{% static 'uploadphoto/css/style.css' %}" />
+    <title>Upload Photo</title>
+  </head>
+  <body>
+    <div class="recommend">
+      <div class="div">
+        <div class="overlap">
+          <header class="header">
+            <div class="text-wrapper">여기 옵서</div>
+            <div class="explain">
+              <div class="overlap-group">
+                <div class="text-wrapper-2">Explain</div>
+              </div>
+            </div>
+            <!-- Home 클릭 시 main 페이지로 이동 -->
+            <div class="home">
+              <a href="{% url 'main_page' %}" style="display: block; text-decoration: none; color: inherit;">
+                <div class="div-wrapper">
+                  <div class="text-wrapper-3">Home</div>
+                </div>
+              </a>
+            </div>
+            <!-- Search 클릭 시 uploadphoto 페이지로 이동 -->
+            <div class="search">
+              <a href="{% url 'uploadphoto_page' %}" style="display: block; text-decoration: none; color: inherit;">
+                <div class="overlap-2">
+                  <div class="rectangle"></div>
+                  <!-- 
+                    만약 Search 입력 필드를 실제로 사용하고 싶다면 
+                    input 태그는 a 태그 내부에 넣지 않는 것이 좋습니다.
+                    여기서는 클릭 시 페이지 이동 기능만 적용할 예정입니다.
+                  -->
+                  <input class="input" placeholder="Search" type="text" disabled style="pointer-events: none; background: none; border: none;"/>
+                </div>
+              </a>
+            </div>
+            <div class="contents">
+              <div class="contents-wrapper">
+                <div class="contents-2">Contents</div>
+              </div>
+            </div>
+            <div class="workers">
+              <div class="overlap-3">
+                <div class="rectangle-2"></div>
+                <div class="workers-2">Workers</div>
+              </div>
+            </div>
+            <div class="login">
+              <div class="overlap-4">
+                <div class="text-wrapper-4">로그인</div>
+              </div>
+            </div>
+          </header>
+        </div>
+        <div class="overlap-5">
+          <div class="upload-your-photo">Upload Your Photo</div>
+          <img class="share" src="{% static 'uploadphoto/img/share.svg' %}" alt="Share" />
+        </div>
+        <div class="upload-your-travel">
+          Upload Your <br />travel Photo
+        </div>
+        <div class="text-wrapper-5">please submit your photos</div>
+        <div class="text-wrapper-6">choice your travel yourself</div>
+        <p class="p">drag and drop your photo</p>
+        <img class="img" src="{% static 'uploadphoto/image/img2.jpg' %}" alt="Rect33" />
+        <img class="rectangle-3" src="{% static 'uploadphoto/image/img3.jpg' %}" alt="Rect34" />
+        <img class="rectangle-4" src="{% static 'uploadphoto/image/img4.jpg' %}" alt="Rect35" />
+        <img class="rectangle-5" src="{% static 'uploadphoto/image/img5.jpg' %}" alt="Rect36" />
+      </div>
+    </div>
+  </body>
+</html>
