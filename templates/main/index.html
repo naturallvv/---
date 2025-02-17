@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="{% static 'main/css/globals.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/style.css' %}" />
+    <title>메인 페이지</title>
   </head>
   <body>
     <div class="element-screen">
@@ -13,8 +14,13 @@
         <div class="group">
           <div class="overlap-group"><div class="div">Explain</div></div>
         </div>
+        <!-- Home 버튼을 클릭 가능하도록 수정 -->
         <div class="overlap-wrapper">
-          <div class="overlap"><div class="text-wrapper-2">Home</div></div>
+          <a href="{% url 'main_page' %}" style="text-decoration: none;">
+            <div class="overlap">
+              <div class="text-wrapper-2">Home</div>
+            </div>
+          </a>
         </div>
         <div class="overlap-group-wrapper">
           <div class="overlap-2">
@@ -32,7 +38,9 @@
           </div>
         </div>
         <div class="group-3">
-          <div class="overlap-4"><div class="text-wrapper-4">로그인</div></div>
+          <div class="overlap-4">
+            <div class="text-wrapper-4">로그인</div>
+          </div>
         </div>
         <div class="group-4">
           <div class="overlap-5">
@@ -57,14 +65,16 @@
               <div class="group-8">
                 <div class="see-more-wrapper">
                   <p class="see-more">
-                    <span class="text-wrapper-8"></span> <span class="text-wrapper-8">See More</span>
+                    <span class="text-wrapper-8"></span>
+                    <span class="text-wrapper-8">See More</span>
                   </p>
                 </div>
               </div>
               <div class="group-9">
                 <div class="view-site-wrapper">
                   <p class="view-site">
-                    <span class="text-wrapper-9"></span> <span class="text-wrapper-9">View site</span>
+                    <span class="text-wrapper-9"></span>
+                    <span class="text-wrapper-9">View site</span>
                   </p>
                 </div>
               </div>
@@ -85,13 +95,15 @@
         </div>
         <div class="group-12">
           <p class="upload-your-photo">
-            <span class="text-wrapper-10">upload</span> <span class="text-wrapper-10"> your photo</span>
+            <span class="text-wrapper-10">upload</span>
+            <span class="text-wrapper-10"> your photo</span>
           </p>
           <img class="element" src="{% static 'main/image/main3.jpg' %}" />
         </div>
         <div class="group-13">
           <p class="enjoy-variable-spots">
-            <span class="text-wrapper-10">Enjoy </span> <span class="text-wrapper-10">variable spots</span>
+            <span class="text-wrapper-10">Enjoy </span>
+            <span class="text-wrapper-10">variable spots</span>
           </p>
           <div class="group-14">
             <div class="overlap-group-3">
@@ -104,7 +116,8 @@
         <div class="overlap-7">
           <div class="group-15">
             <p class="select-the-photo">
-              <span class="text-wrapper-10">select </span> <span class="text-wrapper-10">the photo</span>
+              <span class="text-wrapper-10">select </span>
+              <span class="text-wrapper-10">the photo</span>
             </p>
             <div class="group-16">
               <div class="overlap-group-4">
