@@ -1,7 +1,6 @@
 .element {
     background-color: rgba(255, 255, 255, 1.0);
     display: flex;
-    flex-direction: row;
     justify-content: center;
     width: 100%;
   }
@@ -15,18 +14,17 @@
       rgb(245, 245, 245) 100%
     );
     width: 1920px;
-    height: 2400px;
+    /* 고정 높이 제거 */
+    /* height: 2400px; */
     position: relative;
   }
   
-  /* 상단 바 (헤더) */
+  /* 헤더 영역 */
   .element .overlap {
-    position: absolute;
     width: 1920px;
     height: 74px;
-    top: 0;
-    left: 0;
     background-color: #ffffff;
+    position: relative; /* 절대 위치 제거 */
   }
   
   .element .header {
@@ -37,6 +35,7 @@
     background-color: transparent;
   }
   
+  /* 여기 옵서 텍스트 */
   .element .text-wrapper {
     width: 126px;
     top: 0;
@@ -51,6 +50,7 @@
     line-height: normal;
   }
   
+  /* Explain 버튼 */
   .element .explain {
     position: absolute;
     width: 103px;
@@ -80,6 +80,7 @@
     line-height: normal;
   }
   
+  /* Home 버튼 */
   .element .home {
     position: absolute;
     width: 91px;
@@ -110,6 +111,7 @@
     white-space: nowrap;
   }
   
+  /* Search 버튼 */
   .element .search {
     position: absolute;
     width: 103px;
@@ -150,6 +152,7 @@
     padding: 0;
   }
   
+  /* Contents 버튼 */
   .element .contents {
     position: absolute;
     width: 119px;
@@ -179,6 +182,7 @@
     line-height: normal;
   }
   
+  /* Workers 버튼 */
   .element .workers {
     position: absolute;
     width: 130px;
@@ -216,6 +220,7 @@
     line-height: normal;
   }
   
+  /* 로그인 버튼 */
   .element .login {
     position: absolute;
     width: 102px;
@@ -230,8 +235,7 @@
     height: 38px;
     background-color: #f5f5f5;
     border-radius: 50px;
-    border: 1px solid;
-    border-color: #000000;
+    border: 1px solid #000000;
   }
   
   .element .text-wrapper-4 {
@@ -247,34 +251,28 @@
     line-height: normal;
   }
   
-  /* 지도 영역 - 임의로 group 클래스를 대체하거나 새 컨테이너를 사용해도 됨 */
+  /* 지도 영역 */
   .element .group {
-    position: absolute;
+    /* 절대 위치 제거 */
     width: 1400px;
-    height: 400px;
-    top: 114px;
-    left: 260px;
-    /* 기존 background-image 제거, 지도(#map) 표시용 */
-    /* background-image: url(./img/rectangle-37.svg); */
-    /* background-size: cover; */
-    /* background-position: 50% 50%; */
+    height: 600px; /* 지도 크기를 늘리고 싶다면 600px, 800px 등으로 조정 */
+    margin: 120px auto 0; /* 상단 120px, 중앙 정렬 */
+    display: block;
   }
   
-  /* 지도 아이디 (실제로 지도 표시) */
   .element #map {
     width: 100%;
     height: 100%;
   }
   
-  /* 하단 3곳 정보 컨테이너 */
+  /* 하단 3곳 */
   .element .group-2 {
-    position: absolute;
+    /* 절대 위치 제거 */
     width: 1820px;
     height: 1045px;
-    top: 1287px;
-    left: 50px;
+    margin: 40px auto; 
     display: flex;
-    justify-content: space-between; /* 3개 장소를 가로로 배치 */
+    justify-content: space-between;
   }
   
   /* 첫 번째 장소 */
@@ -324,7 +322,6 @@
     position: relative;
     width: 580px;
     height: 1045px;
-    /* left, top은 group-2에서 flex 배치하므로 자동 위치 */
   }
   
   .element .text-wrapper-6 {

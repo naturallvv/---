@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <title>결과 페이지</title>
-    <!-- 기존 CSS 파일 -->
+    <!-- CSS -->
     <link rel="stylesheet" href="{% static 'kakaomapapi/css/globals.css' %}" />
     <link rel="stylesheet" href="{% static 'kakaomapapi/css/style.css' %}" />
     <!-- 카카오맵 API (YOUR_KAKAO_JS_KEY 교체) -->
@@ -13,19 +13,71 @@
   <body>
     <div class="element">
       <div class="div">
+        <!-- 헤더 -->
         <div class="overlap">
           <header class="header">
-            <!-- 헤더 영역 (Home, Search 등) -->
-            <!-- ... 생략 ... -->
+            <!-- 로고/타이틀 -->
+            <div class="text-wrapper">여기 옵서</div>
+
+            <!-- Explain 버튼 -->
+            <div class="explain">
+              <div class="overlap-group">
+                <div class="text-wrapper-2">Explain</div>
+              </div>
+            </div>
+
+            <!-- Home 버튼 -->
+            <div class="home">
+              <!-- 클릭 시 main 페이지로 이동 -->
+              <a href="{% url 'main_page' %}" style="display: block; text-decoration: none; color: inherit;">
+                <div class="div-wrapper">
+                  <div class="text-wrapper-3">Home</div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Search 버튼 -->
+            <div class="search">
+              <!-- 클릭 시 uploadphoto 페이지로 이동 -->
+              <a href="{% url 'uploadphoto_page' %}" style="display: block; text-decoration: none; color: inherit;">
+                <div class="overlap-2">
+                  <div class="rectangle"></div>
+                  <input class="input" placeholder="Search" type="text" disabled
+                         style="pointer-events: none; background: none; border: none;" />
+                </div>
+              </a>
+            </div>
+
+            <!-- Contents 버튼 -->
+            <div class="contents">
+              <div class="contents-wrapper">
+                <div class="contents-2">Contents</div>
+              </div>
+            </div>
+
+            <!-- Workers 버튼 -->
+            <div class="workers">
+              <div class="overlap-3">
+                <div class="rectangle-2"></div>
+                <div class="workers-2">Workers</div>
+              </div>
+            </div>
+
+            <!-- 로그인 버튼 -->
+            <div class="login">
+              <div class="overlap-4">
+                <div class="text-wrapper-4">로그인</div>
+              </div>
+            </div>
           </header>
         </div>
 
-        <!-- 지도 컨테이너 (group) -->
+        <!-- 지도 영역 -->
         <div class="group">
           <div id="map"></div>
         </div>
 
-        <!-- 하단 3곳 정보 컨테이너 (group-2) -->
+        <!-- 하단 3곳 정보 -->
         <div class="group-2">
           <!-- 첫 번째 장소 -->
           <div class="group-3">
@@ -56,7 +108,7 @@
     </div>
 
     <script>
-      // 지도 초기화
+      // 지도 초기화 (height는 style.css에서 .group, #map 높이로 결정)
       function initMap() {
         var mapContainer = document.getElementById('map');
         var mapOption = {
