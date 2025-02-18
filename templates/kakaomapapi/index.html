@@ -3,67 +3,51 @@
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
-    <title>결과 페이지</title>
-    <!-- CSS -->
+    <title>추천 결과</title>
+    <!-- 외부 CSS -->
     <link rel="stylesheet" href="{% static 'kakaomapapi/css/globals.css' %}" />
     <link rel="stylesheet" href="{% static 'kakaomapapi/css/style.css' %}" />
-    <!-- 카카오맵 API (YOUR_KAKAO_JS_KEY 교체) -->
+    <!-- 카카오맵 API (실제 키 사용) -->
     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=538a9e15d946315f51abce03858d6bf3&libraries=services"></script>
   </head>
   <body>
     <div class="element">
       <div class="div">
-        <!-- 헤더 -->
+        <!-- 헤더 영역은 기존 그대로 유지 -->
         <div class="overlap">
           <header class="header">
-            <!-- 로고/타이틀 -->
             <div class="text-wrapper">여기 옵서</div>
-
-            <!-- Explain 버튼 -->
             <div class="explain">
               <div class="overlap-group">
                 <div class="text-wrapper-2">Explain</div>
               </div>
             </div>
-
-            <!-- Home 버튼 -->
             <div class="home">
-              <!-- 클릭 시 main 페이지로 이동 -->
               <a href="{% url 'main_page' %}" style="display: block; text-decoration: none; color: inherit;">
                 <div class="div-wrapper">
                   <div class="text-wrapper-3">Home</div>
                 </div>
               </a>
             </div>
-
-            <!-- Search 버튼 -->
             <div class="search">
-              <!-- 클릭 시 uploadphoto 페이지로 이동 -->
               <a href="{% url 'uploadphoto_page' %}" style="display: block; text-decoration: none; color: inherit;">
                 <div class="overlap-2">
                   <div class="rectangle"></div>
-                  <input class="input" placeholder="Search" type="text" disabled
-                         style="pointer-events: none; background: none; border: none;" />
+                  <input class="input" placeholder="Search" type="text" disabled style="pointer-events: none; background: none; border: none;" />
                 </div>
               </a>
             </div>
-
-            <!-- Contents 버튼 -->
             <div class="contents">
               <div class="contents-wrapper">
                 <div class="contents-2">Contents</div>
               </div>
             </div>
-
-            <!-- Workers 버튼 -->
             <div class="workers">
               <div class="overlap-3">
                 <div class="rectangle-2"></div>
                 <div class="workers-2">Workers</div>
               </div>
             </div>
-
-            <!-- 로그인 버튼 -->
             <div class="login">
               <div class="overlap-4">
                 <div class="text-wrapper-4">로그인</div>
@@ -77,47 +61,91 @@
           <div id="map"></div>
         </div>
 
-        <!-- 하단 3곳 정보 -->
-        <div class="group-2">
-          <!-- 첫 번째 장소 -->
-          <div class="group-3">
-            <img class="img" src="{% static 'kakaomapapi/img/rectangle-41.svg' %}" alt="사려니 숲길" />
-            <p class="p">
-              <span class="span">사려니 숲길<br /></span>
-              <span class="text-wrapper-5">제주 제주시 조천읍 교래리 산137-1</span>
-            </p>
-          </div>
-          <!-- 두 번째 장소 -->
-          <div class="group-4">
-            <img class="img" src="{% static 'kakaomapapi/img/rectangle-40.svg' %}" alt="동백 포레스트" />
-            <p class="text-wrapper-6">
-              동백 포레스트<br />
-              제주 서귀포시 남원읍 생기악로 53-38
-            </p>
-          </div>
-          <!-- 세 번째 장소 -->
-          <div class="group-5">
-            <img class="img" src="{% static 'kakaomapapi/img/rectangle-39.svg' %}" alt="어린 왕자 감귤밭" />
-            <p class="text-wrapper-6">
-              어린 왕자 감귤밭<br />
-              제주 서귀포시 대정읍 추사로36번길 45-1
-            </p>
-          </div>
+        <!-- 하단 결과 카드 영역 -->
+        <div class="result-container" id="resultContainer">
+          <!-- JS에서 동적으로 결과 카드가 생성됩니다. -->
         </div>
       </div>
     </div>
 
     <script>
-      // 지도 초기화 (height는 style.css에서 .group, #map 높이로 결정)
+      // 백엔드에서 전달된 JSON 데이터를 파싱합니다.
+      // 추천 결과 데이터 형식 예시:
+      // [
+      //   { "name": "사려니 숲길", "address": "제주 제주시 조천읍 교래리 산137-1", "similarity": 0.92, "img": "/media/result1.jpg" },
+      //   { "name": "동백 포레스트", "address": "제주 서귀포시 남원읍 생기악로 53-38", "similarity": 0.88, "img": "/media/result2.jpg" },
+      //   { "name": "어린 왕자 감귤밭", "address": "제주 서귀포시 대정읍 추사로36번길 45-1", "similarity": 0.85, "img": "/media/result3.jpg" }
+      // ]
+      var recommendedPlaces = JSON.parse('{{ places_json|safe }}');
+
+      // 지도 초기화 함수: 지도에 마커를 추가하는 기능 포함
       function initMap() {
         var mapContainer = document.getElementById('map');
         var mapOption = {
-          center: new kakao.maps.LatLng(33.3617, 126.5292), 
+          center: new kakao.maps.LatLng(33.3617, 126.5292), // 기본 제주도 중심 좌표
           level: 9
         };
         var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        // Geocoder 생성 (주소를 좌표로 변환)
+        var geocoder = new kakao.maps.services.Geocoder();
+
+        // 추천 장소 데이터 순회: 각 장소에 대해 주소 검색 후 마커 추가
+        recommendedPlaces.forEach(function(place) {
+          geocoder.addressSearch(place.address, function(result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+              var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+              var marker = new kakao.maps.Marker({
+                map: map,
+                position: coords
+              });
+              // 인포윈도우: 마우스 오버 시 장소 이름 표시
+              var infowindow = new kakao.maps.InfoWindow({
+                content: '<div style="padding:5px; font-size:14px;">' + place.name + '</div>'
+              });
+              kakao.maps.event.addListener(marker, 'mouseover', function() {
+                infowindow.open(map, marker);
+              });
+              kakao.maps.event.addListener(marker, 'mouseout', function() {
+                infowindow.close();
+              });
+            }
+          });
+        });
       }
-      window.onload = initMap;
+
+      // 결과 카드 동적 생성 함수
+      function displayResultCards() {
+        var container = document.getElementById('resultContainer');
+        container.innerHTML = ''; // 기존 내용 초기화
+
+        recommendedPlaces.forEach(function(place) {
+          var card = document.createElement('div');
+          card.className = 'result-card';
+
+          // 결과 이미지: 추천 결과에 img 속성이 있으면 사용, 없으면 기본 이미지
+          var img = document.createElement('img');
+          img.src = place.img || '{% static "kakaomapapi/img/default_result.svg" %}';
+          card.appendChild(img);
+
+          // 장소 이름과 주소
+          var text = document.createElement('p');
+          text.innerHTML = place.name + '<br>' + place.address;
+          card.appendChild(text);
+
+          // 유사도 정보 (백분율 표시)
+          var sim = document.createElement('span');
+          sim.textContent = '유사도: ' + (place.similarity * 100).toFixed(2) + '%';
+          card.appendChild(sim);
+
+          container.appendChild(card);
+        });
+      }
+
+      window.onload = function() {
+        initMap();
+        displayResultCards();
+      };
     </script>
   </body>
 </html>

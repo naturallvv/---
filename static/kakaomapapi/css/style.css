@@ -343,4 +343,28 @@
     width: 580px;
     height: 1045px;
   }
+
+  .result-container {
+    width: 1400px;
+    margin: 40px auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* 카드 간격 */
+  }
+  
+  .result-card {
+    width: 400px; /* 카드 전체 너비 */
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 10px;
+  }
+  
+  .result-card img {
+    width: 380px;   /* 이미지 너비를 카드 너비에 맞춤 */
+    height: 250px;  /* 원하는 고정 높이 지정 */
+    object-fit: cover; /* 이미지를 잘라서 비율 유지 */
+    display: block;
+    margin: 0 auto;
+  }
   

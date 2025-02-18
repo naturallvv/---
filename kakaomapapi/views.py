@@ -1,5 +1,7 @@
+import json
 from django.shortcuts import render
 
 def result_page(request):
-    # 현재 아무런 추가 데이터를 전달하지 않고 단순 결과 페이지를 렌더링합니다.
-    return render(request, 'kakaomapapi/index.html')
+    recommended_places = request.session.get('recommended_places', [])
+    places_json = json.dumps(recommended_places, ensure_ascii=False)
+    return render(request, 'kakaomapapi/index.html', {'places_json': places_json})

@@ -94,13 +94,13 @@ def find_most_similar_images(query_image_path, feature_folder, location_file, to
     
     return similar_images
 
-# 테스트 예시
-query_image_path = r"C:\Users\wq188\Pictures\Screenshots\스크린샷 2025-02-18 220413.png"  # 예시 이미지
-feature_folder = r"C:\Users\wq188\Desktop\image\features"  # 특징 벡터 폴더 경로
-location_file = r"C:\Users\wq188\Desktop\이미지 지역 정보.txt"  # 지역 정보가 저장된 파일
+# # 테스트 예시
+# query_image_path = r"C:\Users\wq188\Pictures\Screenshots\스크린샷 2025-02-18 220413.png"  # 예시 이미지
+# feature_folder = r"C:\Users\wq188\Desktop\image\features"  # 특징 벡터 폴더 경로
+# location_file = r"C:\Users\wq188\Desktop\이미지 지역 정보.txt"  # 지역 정보가 저장된 파일
 
-# 상위 3개의 가장 유사한 이미지 찾기
-most_similar_images = find_most_similar_images(query_image_path, feature_folder, location_file, top_n=3)
+#상위 3개의 가장 유사한 이미지 찾기
+# most_similar_images = find_most_similar_images(query_image_path, feature_folder, location_file, top_n=3)
 
 # # 결과 출력
 # for idx, (image_name, location, similarity) in enumerate(most_similar_images):
@@ -108,11 +108,11 @@ most_similar_images = find_most_similar_images(query_image_path, feature_folder,
 #     image_name = image_name.replace('.pt', '')  
 #     print(f"Rank {idx + 1}: {image_name}, 지역: {location}, 유사도: {similarity}")
 
-if __name__ == '__main__':
-    # 테스트용 예시
-    query_image_path = r"C:\Users\wq188\Pictures\Screenshots\스크린샷 2025-02-18 220413.png"
-    feature_folder = r"C:\Users\wq188\Desktop\image\features"
-    location_file = r"C:\Users\wq188\Desktop\이미지 지역 정보.txt"
-    similar_images = find_most_similar_images(query_image_path, feature_folder, location_file, top_n=3)
-    for idx, (image_name, location, similarity) in enumerate(similar_images):
-        print(f"Rank {idx+1}: {image_name}, 지역: {location}, 유사도: {similarity}")
+# if __name__ == '__main__':
+#     # 테스트용 예시
+#     query_image_path = r"C:\Users\wq188\Pictures\Screenshots\스크린샷 2025-02-18 220413.png"
+#     feature_folder = r"C:\Users\wq188\Desktop\image\features"
+#     location_file = r"C:\Users\wq188\Desktop\이미지 지역 정보.txt"
+#     similar_images = find_most_similar_images(query_image_path, feature_folder, location_file, top_n=3)
+#     for idx, (image_name, location, similarity) in enumerate(similar_images):
+#         print(f"Rank {idx+1}: {image_name}, 지역: {location}, 유사도: {similarity}")

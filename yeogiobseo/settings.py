@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'uploadphoto',
-    'kakaomapapi'
+    'kakaomapapi',
 ]
 
 MIDDLEWARE = [
