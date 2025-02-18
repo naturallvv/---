@@ -7,16 +7,24 @@
     <link rel="stylesheet" href="{% static 'uploadphoto/css/style.css' %}" />
     <title>Upload Photo</title>
     <style>
-      /* .share 클래스에 정의된 위치 스타일은 style.css에서 관리됩니다.
-         미리보기 이미지(#preview) 기본 상태는 숨김 처리합니다. */
+      /* 미리보기 이미지 (#preview)는 .share 클래스의 위치 스타일을 상속받으며,
+         기본적으로 숨김 처리, 최대 너비 500px, 중앙 정렬 */
       #preview.share {
         display: none;
         max-width: 500px;
         margin: 20px auto;
       }
-      /* label 스타일: 커서 변경 등 */
+      /* label 스타일: 커서 변경 */
       label.upload-your-photo {
         cursor: pointer;
+      }
+      /* 장소 이름, 주소 입력 필드 스타일 수정: 상단 여백을 5px로 변경 */
+      .text-input {
+        display: block;
+        margin: 5px auto;  /* 기존 10px에서 5px로 조정 */
+        width: 300px;
+        padding: 8px;
+        font-size: 16px;
       }
     </style>
   </head>
@@ -71,17 +79,21 @@
           <!-- 업로드 폼 영역 -->
           <form id="uploadForm" method="POST" enctype="multipart/form-data" style="text-align: center;">
             {% csrf_token %}
-            <!-- 숨겨진 파일 입력; 파일 선택 시 previewFile() 호출 -->
+            <!-- 파일 입력 (name="image"로 PhotoForm과 일치) -->
             <input type="file" name="image" id="photo" accept="image/*" style="display: none;"
-                    onchange="previewFile()" required />
-            <!-- label 클릭 시 파일 선택창이 열림 -->
+                   onchange="previewFile()" required />
+            <!-- label 클릭 시 파일 선택창 -->
             <label for="photo" class="upload-your-photo" style="cursor: pointer;">
               Upload Your Photo
             </label>
+            <!-- 장소 이름 입력 필드 -->
+            <input type="text" name="place_name" class="text-input" placeholder="장소 이름" required />
+            <!-- 주소 입력 필드 -->
+            <input type="text" name="address" class="text-input" placeholder="주소" required />
           </form>
           <!-- 업로드된 사진 미리보기가 .share 스타일에 의해 지정된 위치에 나타남 -->
           <img id="preview" class="share" src="#" alt="Uploaded Photo" />
-          <!-- 원래 있던 share 아이콘은 여기서는 필요 없으므로 display: none 처리 -->
+          <!-- 원래 있던 share 아이콘 숨김 처리 -->
           <img class="share" src="{% static 'uploadphoto/img/share.svg' %}" alt="Share" style="display: none;" />
         </div>
         <div class="upload-your-travel">
@@ -94,6 +106,21 @@
         <img class="rectangle-3" src="{% static 'uploadphoto/image/img3.jpg' %}" alt="Rect34" />
         <img class="rectangle-4" src="{% static 'uploadphoto/image/img4.jpg' %}" alt="Rect35" />
         <img class="rectangle-5" src="{% static 'uploadphoto/image/img5.jpg' %}" alt="Rect36" />
+        <!-- 결과 영역: 메시지 및 AI 검사 결과 출력 (있을 경우) -->
+        {% if message %}
+          <p style="text-align: center; color: green;">{{ message }}</p>
+        {% endif %}
+        {% if ai_result %}
+          <div class="ai-result" style="text-align: center; margin-top: 20px;">
+            {% if ai_result.error %}
+              <p>{{ ai_result.error }}</p>
+            {% else %}
+              <h3>AI 유사도 검사 결과</h3>
+              <p>가장 유사한 이미지: {{ ai_result.most_similar_image }}</p>
+              <p>유사도: {{ ai_result.similarity|floatformat:2 }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
       </div>
     </div>
     <script>
