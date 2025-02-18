@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('main.urls')),
     path('uploadphoto/', include('uploadphoto.urls')),
     path('kakaomapapi/', include(('kakaomapapi.urls', 'kakaomapapi'), namespace='kakaomapapi')),
+    path('jeoleomii/', include(('jeoleomii.urls', 'jeoleomii'), namespace='jeoleomii')),
 ]
 
 # 개발 모드에서 미디어 파일 서빙을 위해

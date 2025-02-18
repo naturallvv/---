@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'main',
     'uploadphoto',
     'kakaomapapi',
+    'jeoleomii',
 ]
 
 MIDDLEWARE = [
