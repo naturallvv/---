@@ -1,8 +1,8 @@
 # uploadphoto/forms.py
 from django import forms
-from .models import Photo
+from .models import UserPhoto
 
-class PhotoForm(forms.ModelForm):
+class UserPhotoForm(forms.ModelForm):
     class Meta:
-        model = Photo
+        model = UserPhoto
         fields = ['image', 'place_name', 'address']
