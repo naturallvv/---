@@ -19,6 +19,7 @@
     position: relative;
   }
   
+  /* 상단 바 (헤더) */
   .element .overlap {
     position: absolute;
     width: 1920px;
@@ -75,7 +76,7 @@
     font-weight: 400;
     color: #000000;
     font-size: 25px;
-    letter-spacing: -1.00px;
+    letter-spacing: -1px;
     line-height: normal;
   }
   
@@ -246,31 +247,41 @@
     line-height: normal;
   }
   
+  /* 지도 영역 - 임의로 group 클래스를 대체하거나 새 컨테이너를 사용해도 됨 */
   .element .group {
     position: absolute;
     width: 1400px;
-    height: 1027px;
+    height: 400px;
     top: 114px;
     left: 260px;
-    background-image: url(./img/rectangle-37.svg);
-    background-size: cover;
-    background-position: 50% 50%;
+    /* 기존 background-image 제거, 지도(#map) 표시용 */
+    /* background-image: url(./img/rectangle-37.svg); */
+    /* background-size: cover; */
+    /* background-position: 50% 50%; */
   }
   
+  /* 지도 아이디 (실제로 지도 표시) */
+  .element #map {
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* 하단 3곳 정보 컨테이너 */
   .element .group-2 {
     position: absolute;
     width: 1820px;
     height: 1045px;
     top: 1287px;
     left: 50px;
+    display: flex;
+    justify-content: space-between; /* 3개 장소를 가로로 배치 */
   }
   
+  /* 첫 번째 장소 */
   .element .group-3 {
-    position: absolute;
+    position: relative;
     width: 580px;
     height: 1045px;
-    top: 0;
-    left: 0;
   }
   
   .element .img {
@@ -308,12 +319,12 @@
     font-weight: 500;
   }
   
+  /* 두 번째 장소 */
   .element .group-4 {
-    position: absolute;
+    position: relative;
     width: 580px;
     height: 1045px;
-    top: 0;
-    left: 621px;
+    /* left, top은 group-2에서 flex 배치하므로 자동 위치 */
   }
   
   .element .text-wrapper-6 {
@@ -329,11 +340,10 @@
     line-height: normal;
   }
   
+  /* 세 번째 장소 */
   .element .group-5 {
-    position: absolute;
+    position: relative;
     width: 580px;
     height: 1045px;
-    top: 0;
-    left: 1242px;
   }
   

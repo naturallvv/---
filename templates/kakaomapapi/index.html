@@ -1,62 +1,71 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="ko">
   <head>
     <meta charset="utf-8" />
+    <title>결과 페이지</title>
+    <!-- 기존 CSS 파일 -->
     <link rel="stylesheet" href="{% static 'kakaomapapi/css/globals.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'kakaomapapi/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'kakaomapapi/css/style.css' %}" />
+    <!-- 카카오맵 API (YOUR_KAKAO_JS_KEY 교체) -->
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=538a9e15d946315f51abce03858d6bf3&libraries=services"></script>
   </head>
   <body>
     <div class="element">
       <div class="div">
         <div class="overlap">
           <header class="header">
-            <div class="text-wrapper">여기 옵서</div>
-            <div class="explain">
-              <div class="overlap-group"><div class="text-wrapper-2">Explain</div></div>
-            </div>
-            <div class="home">
-              <div class="div-wrapper"><div class="text-wrapper-3">Home</div></div>
-            </div>
-            <div class="search">
-              <div class="overlap-2">
-                <div class="rectangle"></div>
-                <input class="input" placeholder="Search" type="text" />
-              </div>
-            </div>
-            <div class="contents">
-              <div class="contents-wrapper"><div class="contents-2">Contents</div></div>
-            </div>
-            <div class="workers">
-              <div class="overlap-3">
-                <div class="rectangle-2"></div>
-                <div class="workers-2">Workers</div>
-              </div>
-            </div>
-            <div class="login">
-              <div class="overlap-4"><div class="text-wrapper-4">로그인</div></div>
-            </div>
+            <!-- 헤더 영역 (Home, Search 등) -->
+            <!-- ... 생략 ... -->
           </header>
         </div>
-        <div class="group"></div>
+
+        <!-- 지도 컨테이너 (group) -->
+        <div class="group">
+          <div id="map"></div>
+        </div>
+
+        <!-- 하단 3곳 정보 컨테이너 (group-2) -->
         <div class="group-2">
+          <!-- 첫 번째 장소 -->
           <div class="group-3">
-            <img class="img" src="img/rectangle-41.svg" />
+            <img class="img" src="{% static 'kakaomapapi/img/rectangle-41.svg' %}" alt="사려니 숲길" />
             <p class="p">
               <span class="span">사려니 숲길<br /></span>
               <span class="text-wrapper-5">제주 제주시 조천읍 교래리 산137-1</span>
             </p>
           </div>
+          <!-- 두 번째 장소 -->
           <div class="group-4">
-            <img class="img" src="img/rectangle-40.svg" />
-            <p class="text-wrapper-6">동백 포레스트<br />제주 서귀포시 남원읍 생기악로 53-38</p>
+            <img class="img" src="{% static 'kakaomapapi/img/rectangle-40.svg' %}" alt="동백 포레스트" />
+            <p class="text-wrapper-6">
+              동백 포레스트<br />
+              제주 서귀포시 남원읍 생기악로 53-38
+            </p>
           </div>
+          <!-- 세 번째 장소 -->
           <div class="group-5">
-            <img class="img" src="img/rectangle-39.svg" />
-            <p class="text-wrapper-6">어린 왕자 감귤밭<br />제주 서귀포시 대정읍 추사로36번길 45-1</p>
+            <img class="img" src="{% static 'kakaomapapi/img/rectangle-39.svg' %}" alt="어린 왕자 감귤밭" />
+            <p class="text-wrapper-6">
+              어린 왕자 감귤밭<br />
+              제주 서귀포시 대정읍 추사로36번길 45-1
+            </p>
           </div>
         </div>
       </div>
     </div>
+
+    <script>
+      // 지도 초기화
+      function initMap() {
+        var mapContainer = document.getElementById('map');
+        var mapOption = {
+          center: new kakao.maps.LatLng(33.3617, 126.5292), 
+          level: 9
+        };
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+      }
+      window.onload = initMap;
+    </script>
   </body>
 </html>
