@@ -107,7 +107,7 @@
             image: markerImage
           });
           var userInfowindow = new kakao.maps.InfoWindow({
-            content: '<div style="padding:5px; color:red;">내 위치</div>'
+            content: '<div style="padding:5px; color:red;">추천 장소</div>'
           });
           kakao.maps.event.addListener(userMarker, 'mouseover', function() {
             userInfowindow.open(map, userMarker);
